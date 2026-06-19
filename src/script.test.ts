@@ -18,4 +18,9 @@ describe('parseOpReturn', () => {
   it('rejects an OP_RETURN without the OP_13 magic', () => {
     expect(() => parseOpReturn('6a04deadbeef')).toThrow();
   });
+
+  it('rejects a push that runs past the end of the script', () => {
+    // OP_RETURN OP_13 then a push claiming 10 bytes but only 2 provided
+    expect(() => parseOpReturn('6a5d0aff7f')).toThrow();
+  });
 });

@@ -18,13 +18,16 @@ export function parseOpReturn(scriptHex: string): Uint8Array {
     if (op >= 0x01 && op <= 0x4b) {
       len = op;
     } else if (op === 0x4c) {
+      if (pos >= buf.length) throw new Error('truncated OP_PUSHDATA1 length');
       len = buf[pos++];
     } else if (op === 0x4d) {
+      if (pos + 1 >= buf.length) throw new Error('truncated OP_PUSHDATA2 length');
       len = buf[pos] | (buf[pos + 1] << 8);
       pos += 2;
     } else {
       throw new Error(`unexpected opcode 0x${op.toString(16)} in runestone`);
     }
+    if (pos + len > buf.length) throw new Error('push length exceeds script');
     for (let i = 0; i < len; i++) out.push(buf[pos++]);
   }
   return Uint8Array.from(out);
