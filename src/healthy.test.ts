@@ -20,6 +20,7 @@ describe('healthy (non-burn) Alkanes tx', () => {
   it('unpacks a cellpack with a valid target', () => {
     const cp = r.protostones.find((s) => s.cellpack)?.cellpack;
     expect(cp).toBeDefined();
-    expect(cp!.target.block).toBeGreaterThanOrEqual(0n);
+    expect(cp!.target.block).toBe(2n);
+    expect(cp!.target.tx).toBe(77627n);
   });
 });
