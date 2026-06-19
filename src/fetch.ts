@@ -11,7 +11,8 @@ export function rawTxUrl(source: RawTxSource, txid: string, opts: FetchOptions =
     case 'mempool':
       return `https://mempool.space/api/tx/${txid}/hex`;
     case 'subfrost':
-      return `https://mainnet.subfrost.io/v4/${opts.subfrostApiKey ?? ''}/esplora/tx/${txid}/hex`;
+      if (!opts.subfrostApiKey) throw new Error('subfrostApiKey required for subfrost source');
+      return `https://mainnet.subfrost.io/v4/${opts.subfrostApiKey}/esplora/tx/${txid}/hex`;
     case 'alkanode':
       return `https://api.alkanode.com/tx/${txid}/hex`;
   }
@@ -38,7 +39,7 @@ export async function fetchRawTx(txid: string, opts: FetchOptions = {}): Promise
         const text = (await res.text()).trim();
         if (!HEX_RE.test(text)) {
           lastErr = new Error(`${source} returned non-hex`);
-          continue;
+          break; // non-hex 200 is a semantic mismatch, not transient — try next source
         }
         return text;
       } catch (e) {

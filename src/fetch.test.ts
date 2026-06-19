@@ -10,6 +10,9 @@ describe('rawTxUrl', () => {
   it('builds the subfrost gateway endpoint with an api key', () => {
     expect(rawTxUrl('subfrost', TXID, { subfrostApiKey: 'KEY' })).toContain('mainnet.subfrost.io/v4/KEY');
   });
+  it('throws when subfrost source lacks an api key', () => {
+    expect(() => rawTxUrl('subfrost', TXID)).toThrow();
+  });
 });
 
 describe('fetchRawTx', () => {
@@ -29,5 +32,18 @@ describe('fetchRawTx', () => {
     }) as unknown as typeof fetch;
     const hex = await fetchRawTx(TXID, { sources: ['mempool', 'alkanode'], fetchImpl: fakeFetch });
     expect(hex).toBe('cafe');
+    expect(calls).toBe(3); // mempool: 1 try + 1 retry on HTTP 500, then alkanode succeeds
+  });
+
+  it('falls through on a non-hex 200 body without retrying that source', async () => {
+    let calls = 0;
+    const fakeFetch = (async () => {
+      calls++;
+      if (calls === 1) return new Response('not-hex!', { status: 200 });
+      return new Response('beef', { status: 200 });
+    }) as unknown as typeof fetch;
+    const hex = await fetchRawTx(TXID, { sources: ['mempool', 'alkanode'], fetchImpl: fakeFetch });
+    expect(hex).toBe('beef');
+    expect(calls).toBe(2); // mempool tried once (no retry on non-hex), then alkanode
   });
 });
