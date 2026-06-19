@@ -3,6 +3,7 @@
 // (split_bytes / join_to_bytes). Pure offline.
 
 export function encodeVarInt(value: bigint): Uint8Array {
+  if (value < 0n) throw new Error('encodeVarInt: value must be non-negative');
   const out: number[] = [];
   while (value >> 7n > 0n) {
     out.push(Number(value & 0x7fn) | 0x80);

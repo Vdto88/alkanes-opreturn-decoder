@@ -25,4 +25,8 @@ describe('leb128', () => {
     expect(ints.length).toBe(1);
     expect(bytesToHex(joinToBytes(ints))).toBe('02bbde040102000000000000000000');
   });
+
+  it('encodeVarInt rejects negative input', () => {
+    expect(() => encodeVarInt(-1n)).toThrow();
+  });
 });
