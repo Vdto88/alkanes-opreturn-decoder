@@ -57,6 +57,8 @@ export function parseTxOutputs(rawHex: string): TxOutput[] {
   return outs;
 }
 
+/** Find the index of the first Runestone OP_RETURN output (`6a5d` prefix).
+ *  Returns -1 if no Runestone OP_RETURN is found. */
 export function findOpReturnVout(outputs: TxOutput[]): number {
-  return outputs.findIndex((o) => o.scriptHex.startsWith('6a'));
+  return outputs.findIndex((o) => o.scriptHex.startsWith('6a5d'));
 }

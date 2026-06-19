@@ -16,4 +16,13 @@ describe('decodeCellpack', () => {
   it('throws on a message too short to hold a target', () => {
     expect(() => decodeCellpack(hexToBytes('02'))).toThrow();
   });
+
+  it('handles a message with only a target (opcode 0n, empty inputs)', () => {
+    const cp = decodeCellpack(hexToBytes('0201')); // [block=2, tx=1], no inputs
+    expect(cp.target).toEqual({ block: 2n, tx: 1n });
+    expect(cp.opcode).toBe(0n);
+    expect(cp.inputs).toEqual([]);
+    expect(cp.cleanInputs).toEqual([]);
+    expect(cp.raw).toEqual([2n, 1n]);
+  });
 });

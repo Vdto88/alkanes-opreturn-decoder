@@ -5,13 +5,17 @@ export interface Cellpack {
   target: RuneId;
   opcode: bigint;
   inputs: bigint[];
+  /** real inputs AFTER the opcode (inputs[0]), with trailing 15-byte-alignment padding zeros removed */
   cleanInputs: bigint[];
   raw: bigint[];
 }
 
 /** Decode a protostone message into a cellpack. Wire format is LEB128 of
  *  [block, tx, ...inputs]; opcode = inputs[0] by convention. The message is
- *  15-byte-segment padded, so trailing-zero inputs are alignment padding. */
+ *  interpreted as LEB128 of [block, tx, ...inputs] (NOT a fixed 16-byte-per-u128
+ *  layout) — this matches alkanes-rs and is verified by the burned-bond fixture
+ *  and the espo oracle. The message is 15-byte-segment padded, so trailing-zero
+ *  inputs are alignment padding. */
 export function decodeCellpack(message: Uint8Array): Cellpack {
   const raw = decipher(message);
   if (raw.length < 2) throw new Error('cellpack too short (no target block:tx)');

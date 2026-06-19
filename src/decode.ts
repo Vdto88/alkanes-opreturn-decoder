@@ -49,6 +49,6 @@ function safeCellpack(message: Uint8Array): Cellpack | undefined {
 export function decodeRawTx(rawTxHex: string): DecodeResult {
   const outs = parseTxOutputs(rawTxHex);
   const vout = findOpReturnVout(outs);
-  if (vout < 0) throw new Error('no OP_RETURN output in transaction');
+  if (vout < 0) throw new Error('no Runestone OP_RETURN output in transaction');
   return decodeOpReturn(outs[vout].scriptHex, vout);
 }
