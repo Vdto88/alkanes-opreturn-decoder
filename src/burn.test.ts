@@ -17,5 +17,13 @@ describe('detectBurn', () => {
     const v = detectBurn({ pointer: 1 }, undefined);
     expect(v.burned).toBe(false);
     expect(v.undetermined).toBe(true);
+    expect(v.reason).toContain('OP_RETURN');
+  });
+
+  it('mentions both pointer and refund when both hit the OP_RETURN vout', () => {
+    const v = detectBurn({ pointer: 1, refund: 1 }, 1);
+    expect(v.burned).toBe(true);
+    expect(v.reason).toContain('pointer');
+    expect(v.reason).toContain('refund');
   });
 });
