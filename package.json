@@ -1,0 +1,16 @@
+{
+  "name": "opreturn-decoder",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": { "opreturn-decode": "./dist/cli.js" },
+  "scripts": {
+    "test": "vitest run",
+    "decode": "tsx src/cli.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}
