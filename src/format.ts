@@ -11,7 +11,7 @@ function fmtEdicts(s: DecodedProtostone): string {
 
 function fmtProtostone(s: DecodedProtostone, i: number): string {
   const lines: string[] = [];
-  lines.push(`── Protostone #${i} ${s.isAlkanes ? '(Alkanes)' : ''} ──`);
+  lines.push(`── Protostone #${i}${s.isAlkanes ? ' (Alkanes)' : ''} ──`);
   lines.push(`  protocol_tag: ${s.protocolTag}`);
   lines.push(`  pointer: ${s.pointer ?? '(nenhum)'}   refund: ${s.refund ?? '(nenhum)'}`);
   lines.push(fmtEdicts(s));

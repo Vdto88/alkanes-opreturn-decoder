@@ -14,10 +14,14 @@ describe('formatResult', () => {
   });
 
   it('includes a prominent burn warning', () => {
-    expect(text.toUpperCase()).toContain('QUEIMADOS');
+    expect(text).toContain('QUEIMADOS');
   });
 
   it('reports the edict token 2:77087', () => {
     expect(text).toContain('2:77087');
+  });
+
+  it('renders the one-line Alkanes summary', () => {
+    expect(text).toContain('Alkanes call ao 2:77627, opcode 1');
   });
 });

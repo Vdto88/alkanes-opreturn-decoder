@@ -1,3 +1,4 @@
+import { pathToFileURL } from 'node:url';
 import { decodeOpReturn, decodeRawTx, type DecodeResult } from './decode';
 import { fetchRawTx, type RawTxSource } from './fetch';
 import { formatResult } from './format';
@@ -49,5 +50,7 @@ export async function runCli(argv: string[]): Promise<number> {
   return 0;
 }
 
-// Entry point
-runCli(process.argv.slice(2)).then((code) => process.exit(code));
+// Entry point — run only when invoked directly, not when imported (e.g. by tests)
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  runCli(process.argv.slice(2)).then((code) => process.exit(code));
+}
