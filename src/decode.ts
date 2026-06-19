@@ -29,7 +29,7 @@ export function decodeOpReturn(opReturnHex: string, opReturnVout?: number): Deco
 
   const protostones: DecodedProtostone[] = stones.map((s) => {
     const isAlkanes = s.protocolTag === ALKANES_PROTOCOL_TAG;
-    const cellpack = s.message.length > 0 ? safeCellpack(s.message) : undefined;
+    const cellpack = isAlkanes && s.message.length > 0 ? safeCellpack(s.message) : undefined;
     const burn = detectBurn({ pointer: s.pointer, refund: s.refund }, opReturnVout);
     return { ...s, isAlkanes, cellpack, burn };
   });
