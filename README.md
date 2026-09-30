@@ -3,7 +3,7 @@
 A tiny, **pure-offline** TypeScript decoder for a single Bitcoin transaction. Give it a
 **txid**, an **OP_RETURN hex**, or a **raw-tx hex** and it returns the Runestone, every
 Protostone (protocol tag, edicts, pointer, refund, message, burn, from) and the unpacked
-**Alkanes cellpack** in plain language — including a **burn warning** when a Protostone points
+**Alkanes cellpack** in plain language, including a **burn warning** when a Protostone points
 its output at the OP_RETURN.
 
 ## Why
@@ -29,7 +29,7 @@ npm test          # 41/41 green
 ## Usage
 
 ```bash
-# 1) By txid (the only mode that touches the network — fetches the raw tx)
+# 1) By txid (the only mode that touches the network: it fetches the raw tx)
 npx tsx src/cli.ts <txid>
 
 # 2) From a full raw-tx hex (100% offline)
@@ -39,7 +39,7 @@ npx tsx src/cli.ts --rawtx <rawtx_hex>
 npx tsx src/cli.ts --hex <op_return_hex> --opreturn-vout <N>
 ```
 
-### Example — a burned bond
+### Example: a burned bond
 
 ```bash
 npx tsx src/cli.ts b9f28df473ed333f1b20359e8d25d29f8dee0e25004119e9b9fdc21f77e72f5e
@@ -87,8 +87,8 @@ npx tsx src/cli.ts <txid> --source subfrost --subfrost-key <YOUR_KEY>
 - **Cellpack** is the LEB128 of `[block, tx, ...inputs]`; `target` = the first two values, `opcode`
   = `inputs[0]` by convention. Padding zeros from the 15-byte message packing are trimmed.
 - **Burn** is detected when a protostone's `pointer`/`refund` equals the index of the vout that
-  *is* the OP_RETURN — which requires the vout layout (txid / `--rawtx` modes).
+  *is* the OP_RETURN, which requires the vout layout (txid / `--rawtx` modes).
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).
