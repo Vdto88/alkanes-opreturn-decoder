@@ -39,11 +39,11 @@ export async function runCli(argv: string[]): Promise<number> {
       });
       result = decodeRawTx(raw);
     } else {
-      console.error('uso: opreturn-decode <txid> | --hex <OP_RETURN_hex> [--opreturn-vout N] | --rawtx <hex>');
+      console.error('usage: opreturn-decode <txid> | --hex <OP_RETURN_hex> [--opreturn-vout N] | --rawtx <hex>');
       return 2;
     }
   } catch (e) {
-    console.error(`erro: ${(e as Error).message}`);
+    console.error(`error: ${(e as Error).message}`);
     return 1;
   }
   console.log(formatResult(result));

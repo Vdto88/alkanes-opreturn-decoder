@@ -27,6 +27,6 @@ describe('runCli', () => {
     expect(code).toBe(0);
     const printed = log.mock.calls.map((c) => c.join(' ')).join('\n');
     expect(printed).toContain('2:77627');
-    expect(printed).toContain('QUEIMADOS');
+    expect(printed).toContain('BURNED');
   });
 });

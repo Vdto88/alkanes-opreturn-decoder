@@ -50,10 +50,10 @@ OP_RETURN (vout 1): 6a5d1aff7f8196ec8ad08bc0a882edebb78a92908002ff7f9fb5939010
 ── Protostone #0 (Alkanes) ──
   protocol_tag: 1
   pointer: 1   refund: 0
-  edict: 2 de 2:77087 → vout 1
+  edict: 2 of 2:77087 → vout 1
   cellpack: target 2:77627, opcode 1, inputs [2]
-  resumo: Alkanes call ao 2:77627, opcode 1, com edict de 2 (2:77087) → vout 1.
-  ⚠️  BURN: pointer (1) aponta(m) pro OP_RETURN (vout 1) → alkanes QUEIMADOS
+  summary: Alkanes call to 2:77627, opcode 1, with an edict of 2 (2:77087) → vout 1.
+  ⚠️  BURN: pointer (1) point(s) at the OP_RETURN (vout 1) → alkanes BURNED
 ```
 
 The pointer sends the output to the OP_RETURN's own vout, so the user's LP token is **burned**.

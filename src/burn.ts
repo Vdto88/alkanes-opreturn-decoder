@@ -13,7 +13,7 @@ export function detectBurn(
     return {
       burned: false,
       undetermined: true,
-      reason: 'OP_RETURN vout desconhecido; passe txid/--rawtx ou --opreturn-vout N',
+      reason: 'OP_RETURN vout unknown; pass a txid, --rawtx, or --opreturn-vout N',
     };
   }
   const hits: string[] = [];
@@ -22,7 +22,7 @@ export function detectBurn(
   if (hits.length > 0) {
     return {
       burned: true,
-      reason: `${hits.join(' e ')} aponta(m) pro OP_RETURN (vout ${opReturnVout}) → alkanes QUEIMADOS`,
+      reason: `${hits.join(' and ')} point(s) at the OP_RETURN (vout ${opReturnVout}) → alkanes BURNED`,
     };
   }
   return { burned: false };

@@ -15,7 +15,7 @@ describe('formatResult', () => {
   });
 
   it('includes a prominent burn warning', () => {
-    expect(text).toContain('QUEIMADOS');
+    expect(text).toContain('BURNED');
   });
 
   it('reports the edict token 2:77087', () => {
@@ -23,6 +23,6 @@ describe('formatResult', () => {
   });
 
   it('renders the one-line Alkanes summary', () => {
-    expect(text).toContain('Alkanes call ao 2:77627, opcode 1');
+    expect(text).toContain('Alkanes call to 2:77627, opcode 1');
   });
 });
